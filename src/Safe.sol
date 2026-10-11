@@ -101,6 +101,7 @@ library Safe {
         if (chainId == 1101) return "zkevm";
         if (chainId == 3338) return "peaq";
         if (chainId == 3637) return "btc";
+        if (chainId == 4663) return "robinhood";
         if (chainId == 5000) return "mantle";
         if (chainId == 8453) return "base";
         if (chainId == 9745) return "plasma";
@@ -159,8 +160,9 @@ library Safe {
 
     function _usesV141CanonicalMultiSend(uint256 chainId) private pure returns (bool) {
         return (chainId == 50 || chainId == 143 || chainId == 146 || chainId == 204 || chainId == 988 || chainId == 3338
-                || chainId == 3637 || chainId == 9745 || chainId == 10143 || chainId == 16661 || chainId == 43111
-                || chainId == 57073 || chainId == 80069 || chainId == 80094 || chainId == 81224 || chainId == 747474);
+                || chainId == 3637 || chainId == 4663 || chainId == 9745 || chainId == 10143 || chainId == 16661
+                || chainId == 43111 || chainId == 57073 || chainId == 80069 || chainId == 80094 || chainId == 81224
+                || chainId == 747474);
     }
 
     function getNonce(Client storage self) internal view returns (uint256) {
@@ -422,7 +424,9 @@ library Safe {
         instance(self).requestBody = vm.serializeUint(".proposeTransaction", "gasPrice", 0);
         instance(self).requestBody = vm.serializeUint(".proposeTransaction", "nonce", params.nonce);
 
-        HTTP.Response memory response = instance(self).http.instance()
+        HTTP.Response memory response = instance(self)
+            .http
+            .instance()
             .POST(
                 string.concat(
                     getApiKitUrl(self, block.chainid),
@@ -430,7 +434,9 @@ library Safe {
                     vm.toString(instance(self).safe),
                     "/multisig-transactions/"
                 )
-            ).withBody(instance(self).requestBody).request();
+            )
+            .withBody(instance(self).requestBody)
+            .request();
 
         // The response status should be 2xx, otherwise there was an issue
         if (response.status < 200 || response.status >= 300) {

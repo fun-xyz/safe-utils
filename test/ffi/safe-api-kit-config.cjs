@@ -20,11 +20,15 @@ if (!Array.isArray(networks) || networks.length < MIN_EXPECTED_NETWORKS) {
   throw new Error(`Unexpected networks config shape in ${bundlePath}`);
 }
 
+// Networks the Safe Transaction Service serves that @safe-global/api-kit 4.1.0 predates. api-kit 5.x lists them.
+const NETWORKS_AFTER_API_KIT_4_1_0 = [{ chainId: 4663n, shortName: "robinhood" }];
+const allNetworks = [...networks, ...NETWORKS_AFTER_API_KIT_4_1_0].sort((a, b) => Number(a.chainId) - Number(b.chainId));
+
 const chainIds = [];
 const urls = [];
 const seenChainIds = new Set();
 
-for (const network of networks) {
+for (const network of allNetworks) {
   const chainId = Number(network.chainId);
   if (!Number.isInteger(chainId)) {
     throw new Error(`Invalid chainId in ${bundlePath}: ${network.chainId}`);

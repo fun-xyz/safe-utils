@@ -8,8 +8,8 @@ library SafeConfigFixtures {
     address constant MULTI_SEND_CALL_ONLY_ADDRESS_V141_ZKSYNC = 0x0408EF011960d02349d50286D20531229BCef773;
 
     function officialChains() internal pure returns (uint256[] memory chainIds, string[] memory shortNames) {
-        chainIds = new uint256[](39);
-        shortNames = new string[](39);
+        chainIds = new uint256[](40);
+        shortNames = new string[](40);
         uint256 index;
 
         index = _pushOfficial(chainIds, shortNames, index, 1, "eth");
@@ -31,6 +31,7 @@ library SafeConfigFixtures {
         index = _pushOfficial(chainIds, shortNames, index, 1101, "zkevm");
         index = _pushOfficial(chainIds, shortNames, index, 3338, "peaq");
         index = _pushOfficial(chainIds, shortNames, index, 3637, "btc");
+        index = _pushOfficial(chainIds, shortNames, index, 4663, "robinhood");
         index = _pushOfficial(chainIds, shortNames, index, 5000, "mantle");
         index = _pushOfficial(chainIds, shortNames, index, 8453, "base");
         index = _pushOfficial(chainIds, shortNames, index, 9745, "plasma");
@@ -54,8 +55,8 @@ library SafeConfigFixtures {
     }
 
     function multiSendChains() internal pure returns (uint256[] memory chainIds, address[] memory expected) {
-        chainIds = new uint256[](40);
-        expected = new address[](40);
+        chainIds = new uint256[](41);
+        expected = new address[](41);
         uint256 index;
 
         index = _pushMultiSend(chainIds, expected, index, 1, MULTI_SEND_CALL_ONLY_ADDRESS_V130_CANONICAL);
@@ -77,6 +78,7 @@ library SafeConfigFixtures {
         index = _pushMultiSend(chainIds, expected, index, 1101, MULTI_SEND_CALL_ONLY_ADDRESS_V130_CANONICAL);
         index = _pushMultiSend(chainIds, expected, index, 3338, MULTI_SEND_CALL_ONLY_ADDRESS_V141_CANONICAL);
         index = _pushMultiSend(chainIds, expected, index, 3637, MULTI_SEND_CALL_ONLY_ADDRESS_V141_CANONICAL);
+        index = _pushMultiSend(chainIds, expected, index, 4663, MULTI_SEND_CALL_ONLY_ADDRESS_V141_CANONICAL);
         index = _pushMultiSend(chainIds, expected, index, 5000, MULTI_SEND_CALL_ONLY_ADDRESS_V130_CANONICAL);
         index = _pushMultiSend(chainIds, expected, index, 8453, MULTI_SEND_CALL_ONLY_ADDRESS_V130_CANONICAL);
         index = _pushMultiSend(chainIds, expected, index, 9745, MULTI_SEND_CALL_ONLY_ADDRESS_V141_CANONICAL);
